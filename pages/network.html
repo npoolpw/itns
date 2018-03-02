@@ -36,7 +36,7 @@
             NETWORK_STAT_MAP.forEach((url, host, map) => {
                 $.getJSON(url + '/stats', (data, textStatus, jqXHR) => {
                     updateText('height-'+host, data.network.height);
-                    updateText('hashrate-'+host, data.pool.hashrate+' H/s');
+                    updateText('hashrate-'+host, getReadableHashRateString(data.pool.hashrate)+'/s');
                     updateText('miners-'+host, data.pool.miners);
                     updateText('totalFee-'+host, calculateTotalFee(data)+'%');
                     updateText('lastBlockFound-'+host, new Date(parseInt(data.pool.lastBlockFound)).toLocaleString());
@@ -51,7 +51,7 @@
             $('#network_rows').append('<tr>' +
                 '<td id=host-'+host+'><a target="_blank" href=http://'+host+'>'+host+'</a></td>' +
                 '<td id=height-'+host+'>'+data.network.height+'</td>' +
-                '<td id=hashrate-'+host+'>'+data.pool.hashrate+'&nbsp;H/s</td>' +
+                '<td id=hashrate-'+host+'>'+getReadableHashRateString(data.pool.hashrate)+'/s'+'</td>' +
                 '<td id=miners-'+host+'>'+data.pool.miners+'</td>' +
                 '<td id=totalFee-'+host+'>'+calculateTotalFee(data)+'%</td>' +
                 '<td id=lastBlockFound-'+host+'>'+new Date(parseInt(data.pool.lastBlockFound)).toLocaleString()+'</td>' +
